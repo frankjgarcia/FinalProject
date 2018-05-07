@@ -1,0 +1,75 @@
+@model BuffteksWebsite.Models.EditProjectDetailViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Edit</h2>
+<h4>Project Particpants - Add Participants to Project: @Model.TheProject.ProjectName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @*
+            <form asp-action="EditProjectParticipants">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                    <label asp-for="ProjectName" class="control-label"></label>
+                    <input asp-for="ProjectName" class="form-control" />
+                    <span asp-validation-for="ProjectName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectDescription" class="control-label"></label>
+                    <input asp-for="ProjectDescription" class="form-control" />
+                    <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </form>
+        *@
+
+        <script type="text/javascript">
+            function changeClientPrompt() {
+                if (document.getElementById("SelectedID").value != '@Model.SelectedID') {
+                    return confirm("Are you sure you want to change the client for @Model.TheProject.ProjectName?")
+                }
+                else {
+                    alert("The client for @Model.TheProject.ProjectName has not changed.");
+                    return false;
+                }
+            }
+        </script>
+
+        @Html.Raw(@Model.ErrorMessage)
+        <form asp-controller="Projects" asp-action="EditProjectParticipants" method="post">
+            <div class="form-group">
+                <input type="hidden" name="ProjectId" value="@Model.TheProject.ID" />
+                <input type="hidden" name="ParticipantType" value="Client" />
+                <label asp-for="SelectedID" class="control-label">Select from Clients</label>
+                <select asp-for="SelectedID" asp-items="Model.ProjectClientsList"></select>
+                <span class="text-danger">TODO: We need to show an exclusive list of clients not already on the project</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Select New Client for Project" onclick="return changeClientPrompt();" class="btn btn-default" />
+            </div>
+        </form>
+        <form asp-controller="Projects" asp-action="EditProjectParticipants" method="post">
+            <div class="form-group">
+                <input type="hidden" name="ProjectId" value="@Model.TheProject.ID" />
+                <input type="hidden" name="ParticipantType" value="Member" />
+                <label asp-for="SelectedID" class="control-label">Select from Members</label>
+                <select asp-for="SelectedID" asp-items="Model.ProjectMembersList"></select>
+                <span class="text-danger">TODO: We need to show an exclusive list of members not already on the project</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Select New Member for Project" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

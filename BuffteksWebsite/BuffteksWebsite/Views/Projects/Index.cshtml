@@ -1,0 +1,45 @@
+@model IEnumerable<BuffteksWebsite.Models.Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h2 class="text-center" >Projects</h2>
+
+<p class="text-center">
+    <!-- <a asp-action="Create">Create New</a> -->
+    <a class="btn btn-success" href="~/Projects/Create" role="button">Create</a>
+</p>
+<p class="text-center" >
+    <a asp-controller="ProjectRoster" asp-action="Index">View Roster</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectDescription)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectDescription)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a class="text-secondary" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a class="text-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

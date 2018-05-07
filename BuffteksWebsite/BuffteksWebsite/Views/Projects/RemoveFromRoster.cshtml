@@ -1,0 +1,18 @@
+@model BuffteksWebsite.Models.ProjectRoster
+
+@{
+    ViewData["Title"] = "Remove Participant from Roster";
+}
+
+<h2>Remove Participant from Roster</h2>
+<br />
+<h4>Are you sure you want to remove @Model.ProjectParticipant.FullName from the @Model.Project.ProjectName?</h4>
+<br />
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProjectParticipantID" />
+        <input type="hidden" asp-for="ProjectID" />
+        <input type="submit" value="Remove" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-default">Cancel</a>
+    </form>
+</div>

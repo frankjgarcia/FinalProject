@@ -1,0 +1,42 @@
+@model IEnumerable<BuffteksWebsite.Models.ProjectRoster>
+
+@{
+    ViewData["Title"] = $"Project Roster for: {@Model.FirstOrDefault()?.Project.ProjectName}";
+}
+
+<h2>Project Roster for: @Model.FirstOrDefault()?.Project.ProjectName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectParticipant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectParticipant.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectParticipant.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectParticipant.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveFromRoster", new { ProjectID = item.ProjectID, ProjectParticipantID = item.ProjectParticipantID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

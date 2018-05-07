@@ -1,0 +1,98 @@
+@model BuffteksWebsite.Models.ProjectDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TheProject.ProjectName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TheProject.ProjectName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TheProject.ProjectDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TheProject.ProjectDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h4>
+        Participants - Client
+    </h4>
+    <hr />    
+    <table class="table">
+        <thead>
+            <tr>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var client in Model.ProjectClients) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(c => client.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => client.LastName)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Remove", "RemoveFromRoster", new { ProjectID = Model.TheProject.ID, ProjectParticipantID = client.ID })*@
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>    
+</div>
+<div>
+    <h4>
+        Participants - Member
+    </h4>
+    <hr />    
+    <table class="table">
+        <thead>
+            <tr>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var member in Model.ProjectMembers) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => member.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => member.LastName)
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>    
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TheProject.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
